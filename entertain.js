@@ -9,15 +9,10 @@ var spotify = new Spotify(keys.spotify);
 
 var command = process.argv[2];
 var query = process.argv.slice(3).join(" ");
-// console.log(command);
-// console.log(query);
 
 function concertThis(){
     if (query) {
         axios.get("https://rest.bandsintown.com/artists/" + query + "/events?app_id=" + process.env.APP_ID).then(function(response) {
-            // console.log(response.data[0].venue.name);
-            // console.log(response.data[0].venue.city + ", " + response.data[0].venue.region + " " + response.data[0].venue.country);
-            // console.log(moment((response.data[0].datetime)).format("MM/DD/YYYY"))
             var eventsArr = response.data;
             eventsArr.forEach(function(element) {
                 console.log("Venue:", element.venue.name);
@@ -31,6 +26,7 @@ function concertThis(){
         console.log("I recommend going to a Joanna Newsom show.");
         console.log("");
     }
+    writeLog()
 }
 
 function spotifyThis() {
@@ -57,6 +53,7 @@ function spotifyThis() {
             console.error('Error occurred: ' + err); 
         });
     }
+    writeLog()
 }
 
 function movieThis() {
@@ -79,6 +76,16 @@ function movieThis() {
             console.log("");
         })
     }
+    writeLog()
+}
+
+function writeLog() {
+    fs.appendFile("log.txt", "\n" + command + "," + '"' + query + '"', function(err) {
+        if (err) {
+            return console.log(err);
+        }
+        // console.log("log.txt was updated!");
+    });
 }
 
 console.log("")
