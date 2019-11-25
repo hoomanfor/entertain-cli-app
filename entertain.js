@@ -20,8 +20,8 @@ switch (command) {
             // console.log(moment((response.data[0].datetime)).format("MM/DD/YYYY"))
             var eventsArr = response.data;
             eventsArr.forEach(function(element) {
-                console.log("Venue:", element.venue.name)
-                console.log("Location:", element.venue.city + ", " + element.venue.region + " " + element.venue.country)
+                console.log("Venue:", element.venue.name);
+                console.log("Location:", element.venue.city + ", " + element.venue.region + " " + element.venue.country);
                 console.log("Date:", moment((element.datetime)).format("MM/DD/YYYY"));
                 console.log("");
             })
@@ -43,15 +43,36 @@ switch (command) {
         } else {
             spotify.request('https://api.spotify.com/v1/tracks/6RLCQkGIeLR7aoaozvheNT')
             .then(function(data) {
-                console.log("You forgot to enter a song,")
-                console.log("I recommend listening to " + data.album.artists[0].name + "'s " + '"' + data.name + '"')
-                console.log("")
+                console.log("You forgot to enter a song,");
+                console.log("I recommend listening to " + data.album.artists[0].name + "'s " + '"' + data.name + '"');
+                console.log("");
             })
             .catch(function(err) {
                 console.error('Error occurred: ' + err); 
             });
         }
     break;
+    case "movie-this":
+        if (query) {
+            axios.get("http://www.omdbapi.com/?apikey=" + process.env.APIKEY + "&t=" + query + "&plot=short").then(function(response) {
+                console.log("Title:", response.data.Title);
+                console.log("Year:", response.data.Year);
+                console.log("IMDB Rating:", response.data.Ratings[0].Value);
+                console.log("RT Rating:", response.data.Ratings[1].Value);
+                console.log("Country:", response.data.Country);
+                console.log("Language:", response.data.Year);
+                console.log("Plot:", response.data.Plot);
+                console.log("Actors:", response.data.Actors);
+                console.log("");
+            })
+        } else {
+            axios.get("http://www.omdbapi.com/?apikey=" + process.env.APIKEY + "&t=arrival&plot=short").then(function(response) {
+                console.log("You forgot to enter a movie,");
+                console.log("I recommend that you look watch " + '"' + response.data.Title + '"');
+                console.log("");
+            })
+        }
+    break; 
     default:
-        console.log("Default!")
+        console.log("Default!");
 }
