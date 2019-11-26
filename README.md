@@ -10,11 +10,9 @@ I will list the three API's below:
 How do I find out if my favorite musician has any upcoming shows?  
 `node entertain.js concert-this <musician/band name here>`  
 ![concert-this-example](reference/concert-this-example.png)
-
 How do I learn more about a song?  
 `node entertain.js spotify-this-song <song title here>`  
 ![spotify-this-song-example](reference/spotify-this-song-example.png)
-
 How do I learn more about a movie?  
 `node entertain.js spotify-this-song <movie title here>`  
 ![movie-this-example](reference/movie-this-example.png)
